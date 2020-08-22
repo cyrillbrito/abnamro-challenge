@@ -1,0 +1,103 @@
+
+.tree-wrapper {
+  white-space: nowrap;
+}
+
+.tree-wrapper ul {
+  padding-top: 20px;
+  position: relative;
+  padding-left: 0px;
+  display: flex;
+}
+
+.tree-wrapper li {
+  float: left;
+  text-align: center;
+  list-style-type: none;
+  position: relative;
+  padding: 20px 5px 0 5px;
+}
+
+.tree-wrapper li::before, .tree-wrapper li::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 50%;
+  border-top: 2px solid #ccc;
+  width: 50%;
+  height: 18px;
+}
+
+.tree-wrapper li::after {
+  right: auto;
+  left: 50%;
+  border-left: 2px solid #ccc;
+}
+
+.tree-wrapper li:only-child::after, .tree-wrapper li:only-child::before {
+  display: none;
+}
+
+.tree-wrapper li:only-child {
+  padding-top: 0;
+}
+
+.tree-wrapper li:first-child::before, .tree-wrapper li:last-child::after {
+  border: 0 none;
+}
+
+.tree-wrapper li:last-child::before {
+  border-right: 2px solid #ccc;
+  border-radius: 0 5px 0 0;
+  -webkit-border-radius: 0 5px 0 0;
+  -moz-border-radius: 0 5px 0 0;
+}
+
+.tree-wrapper li:first-child::after {
+  border-radius: 5px 0 0 0;
+  -webkit-border-radius: 5px 0 0 0;
+  -moz-border-radius: 5px 0 0 0;
+}
+
+.tree-wrapper ul ul::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  border-left: 2px solid #ccc;
+  width: 0;
+  height: 20px;
+}
+
+.tree-wrapper li a {
+  text-decoration: none;
+  color: #666;
+  font-family: arial, verdana, tahoma;
+  font-size: 11px;
+  display: inline-block;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+}
+
+/*--------------memeber-card-design----------*/
+
+.member-view-box {
+  padding: 0px 20px;
+  text-align: center;
+  border-radius: 4px;
+  position: relative;
+}
+
+.member-image {
+  width: 60px;
+  position: relative;
+}
+
+.member-image img {
+  width: 60px;
+  height: 60px;
+  border-radius: 6px;
+  background-color: #000;
+  z-index: 1;
+}

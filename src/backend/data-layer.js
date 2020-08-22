@@ -35,7 +35,6 @@ const loadNodes = () => [
   },
 ];
 
-
 module.exports = {
-  loadNodes
+  loadNodes,
 };
