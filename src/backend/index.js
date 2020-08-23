@@ -11,8 +11,8 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-app.get('/nodes', (req, res) => {
-  res.send(dataLayer.loadNodes());
+app.get('/nodes', async (req, res) => {
+  res.send(await dataLayer.loadNodes());
 });
 
 app.get('/random', (req, res) => {

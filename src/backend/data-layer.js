@@ -1,38 +1,53 @@
-const loadNodes = () => [
-  {
-    name: 'A',
-    description: 'This is a description of A',
-    children: [],
-  },
-  {
-    name: 'B',
-    description: 'This is a description of B',
-    children: [
-      {
-        name: 'B-1',
-        description: 'This is a description of B-1',
-      },
-      {
-        name: 'B-2',
-        description: 'This is a description of B-2',
-      },
-      {
-        name: 'B-3',
-        description: 'This is a description of B-3',
-      },
-    ],
-  },
-  {
-    name: 'C',
-    description: 'This is a description of C',
-    children: [],
-  },
-  {
-    name: 'D',
-    description: 'This is a description of D',
-    children: [],
-  },
-];
+const neo4j = require('neo4j-driver');
+
+const loadNodes = async () => {
+  const driver = neo4j.driver('bolt://localhost:7687', neo4j.auth.basic('neo4j', 'password'));
+  const session = driver.session();
+
+  try {
+    const results = await session.run(`
+      MATCH (p:Node)-[:CHILD]->(c:Node)
+      RETURN p, c
+    `);
+
+    // results.records.forEach(r => console.log(r.get('name')));
+
+    const nodes = {};
+    for (const result of results.records) {
+      const p = result.get('p').properties;
+      const c = result.get('c').properties;
+
+      if (!nodes[p.name]) {
+        nodes[p.name] = {
+          name: p.name,
+          description: p.description,
+          children: [],
+        }
+      }
+
+      if (!nodes[c.name]) {
+        nodes[c.name] = {
+          name: c.name,
+          description: c.description,
+          children: [],
+          isChild: true,
+        }
+      } else {
+        nodes[c.name].isChild = true;
+      }
+
+      nodes[p.name].children.push(nodes[c.name]);
+    }
+
+    return Object.values(nodes).filter(x => !x.isChild);
+
+  } catch (e) {
+    console.log('exception' + e);
+  } finally {
+    await session.close();
+    await driver.close();
+  }
+};
 
 const loadChildren = (parent, level) => {
   const stop = Math.random() * 4 - level < 0;
