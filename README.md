@@ -1,16 +1,18 @@
 
 # ABN AMRO Challenge
 
+![App preview](./app.png)
+
 # Requirements
 
 * Have neo4j installed on your machine. You can use [this link](https://neo4j.com/download/) to download it.
-* Create a empty database
+* Create an empty database
 * Setup the database uri, user and password on the file `src/config.json`
 
 
 # Quick start
 
-To run all necessary commands to start the project run:
+All in one run command:
 
 ```
 $ npm start
@@ -24,7 +26,7 @@ To run just the migration script:
 $ npm run migration
 ```
 
-This will remove all existing(if any) Nodes from the Neo4j library and insert new ones based on the file `src/migration/data.json`.
+This will remove all existing(if any) Nodes from the Neo4j database and insert new ones based on the file `src/migration/data.json`.
 
 
 # Backend

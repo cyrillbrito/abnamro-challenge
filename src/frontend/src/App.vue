@@ -2,6 +2,8 @@
   <div id="app">
     <div class="tooltip-wrapper">
       <div class="tooltip-card" v-if="active != null">
+        <b>{{active.name}}</b>
+        <br>
         {{active.description}}
         <div class="tooltip-close" v-on:click="active = null">X</div>
       </div>
@@ -75,7 +77,7 @@ body {
   align-items: center;
 }
 .tooltip-card {
-  padding: 20px;
+  padding: 10px 20px;
   border: 1px solid #394f49;
   border-radius: 3px;
   width: fit-content;

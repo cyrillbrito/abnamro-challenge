@@ -1,8 +1,8 @@
 {
   "name": "abnamro-challenge",
   "scripts": {
-    "start": "npm run migration && npm run backend & npm run frontend",
-    "migration": "node src/migration/migration.js",
+    "start": "npm run migrate && npm run backend & npm run frontend",
+    "migrate": "node src/migration/migration.js",
     "backend": "node src/backend/index.js",
     "frontend": "cd src/frontend/src && vue serve"
   },
