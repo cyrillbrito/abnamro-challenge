@@ -23,7 +23,7 @@ $ npm start
 To run just the migration script:
 
 ```
-$ npm run migration
+$ npm run migrate
 ```
 
 This will remove all existing(if any) Nodes from the Neo4j database and insert new ones based on the file `src/migration/data.json`.
