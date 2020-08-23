@@ -1,8 +1,12 @@
 const neo4j = require('neo4j-driver');
 const nodes = require('./data.json').data;
+const config = require('../config.json');
 
 (async () => {
-  const driver = neo4j.driver('bolt://localhost:7687', neo4j.auth.basic('neo4j', 'password'));
+  const driver = neo4j.driver(
+    config.neo4j_uri,
+    neo4j.auth.basic(config.neo4j_username, config.neo4j_password),
+  );
   const session = driver.session();
 
   try {
@@ -25,7 +29,7 @@ const nodes = require('./data.json').data;
       }
     }
   } catch (e) {
-    console.log('exception' + e);
+    console.log('Exception!', e);
   } finally {
     await session.close();
     await driver.close();

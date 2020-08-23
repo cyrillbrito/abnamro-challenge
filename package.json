@@ -1,8 +1,10 @@
 {
   "name": "abnamro-challenge",
   "scripts": {
-    "frontend": "cd src/frontend/src && vue serve",
-    "backend": "node src/backend/index.js"
+    "start": "npm run migration && npm run backend & npm run frontend",
+    "migration": "node src/migration/migration.js",
+    "backend": "node src/backend/index.js",
+    "frontend": "cd src/frontend/src && vue serve"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -17,10 +19,6 @@
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint": "^7.7.0",
-    "ts-loader": "^8.0.2",
-    "typescript": "^3.9.7",
-    "vue-template-compiler": "^2.6.11",
-    "webpack-cli": "^3.3.12",
-    "webpack": "^4.44.1"
+    "vue-template-compiler": "^2.6.11"
   }
 }
