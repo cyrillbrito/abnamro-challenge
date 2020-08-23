@@ -1,4 +1,3 @@
-
 const loadNodes = () => [
   {
     name: 'A',
@@ -35,6 +34,32 @@ const loadNodes = () => [
   },
 ];
 
+const loadChildren = (parent, level) => {
+  const stop = Math.random() * 4 - level < 0;
+  if (stop) {
+    return;
+  }
+
+  parent.children = [];
+  const nNodes = Math.floor(Math.random() * 3) + 1;
+
+  for (let i = 0; i < nNodes; i += 1) {
+    const child = {};
+    child.name = parent.name ? `${parent.name}-${i + 1}` : i + 1;
+    child.description = `This is a description of ${child.name}`;
+    child.description = `This is a description of ${child.name}`;
+    loadChildren(child, level + 1);
+    parent.children.push(child);
+  }
+};
+
+const loadRandom = () => {
+  const root = {};
+  loadChildren(root, 0);
+  return root.children;
+};
+
 module.exports = {
   loadNodes,
+  loadRandom,
 };

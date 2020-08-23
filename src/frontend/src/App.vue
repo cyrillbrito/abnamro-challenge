@@ -6,14 +6,19 @@
         <div class="tooltip-close" v-on:click="active = null">X</div>
       </div>
     </div>
-    <div class="tree-wrapper">
+    <div class="tree-wrapper" v-if="nodes">
       <tree-node
-        v-for="node in results"
+        v-for="node in nodes"
         v-bind:key="node.name"
         v-bind:node="node"
         v-bind:active="active"
         v-on:active-change="active = active == $event ? null : $event"
       ></tree-node>
+    </div>
+    <div class="tree-wrapper" v-else>LOADING</div>
+    <div class="button-wrapper">
+      <button v-on:click="loadOriginalNodes">Load original set of nodes</button>
+      <button v-on:click="loadRandomNodes">Load random set of nodes</button>
     </div>
   </div>
 </template>
@@ -24,48 +29,40 @@ export default {
     "tree-node": () => import("./TreeNode.vue"),
   },
   data: () => ({
-    results: [
-      {
-        name: "A",
-        description: "This is a description of A",
-        children: [],
-      },
-      {
-        name: "B",
-        description: "This is a description of B",
-        children: [
-          {
-            name: "B-1",
-            description: "This is a description of B-1",
-          },
-          {
-            name: "B-2",
-            description: "This is a description of B-2",
-          },
-          {
-            name: "B-3",
-            description: "This is a description of B-3",
-          },
-        ],
-      },
-      {
-        name: "C",
-        description: "This is a description of C",
-        children: [],
-      },
-      {
-        name: "D",
-        description: "This is a description of D",
-        children: [],
-      },
-    ],
+    nodes: null,
     active: null,
   }),
+  created() {
+    this.loadOriginalNodes();
+  },
+  methods: {
+    loadOriginalNodes() {
+      this.callNodesApi("nodes");
+    },
+    loadRandomNodes() {
+      this.callNodesApi("random");
+    },
+    callNodesApi(endpoint) {
+      this.active = null;
+      fetch("http://localhost:3000/" + endpoint)
+        .then((response) => response.json())
+        .then((nodes) => {
+          this.nodes = nodes;
+        })
+        .catch((err) => console.log(err));
+    },
+  },
 };
 </script>
 
 <style>
+body {
+  margin: 0;
+}
 #app {
+  position: absolute;
+  width: 100%;
+  height: 100%;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   color: #330f0a;
   display: flex;
@@ -97,5 +94,17 @@ export default {
 .tree-wrapper {
   display: flex;
   justify-content: center;
+  flex-grow: 1;
+  overflow: auto;
+}
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+  height: 50px;
+}
+.button-wrapper button {
+  height: 30px;
+  cursor: pointer;
+  margin: 0 20px;
 }
 </style>

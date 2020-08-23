@@ -1,7 +1,10 @@
 const express = require('express');
+const cors = require('cors');
 const dataLayer = require('./data-layer');
 
 const app = express();
+app.use(cors());
+
 const port = 3000;
 
 app.get('/', (req, res) => {
@@ -10,6 +13,10 @@ app.get('/', (req, res) => {
 
 app.get('/nodes', (req, res) => {
   res.send(dataLayer.loadNodes());
+});
+
+app.get('/random', (req, res) => {
+  res.send(dataLayer.loadRandom());
 });
 
 app.listen(port, () => {

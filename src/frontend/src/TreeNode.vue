@@ -18,8 +18,6 @@
 </template>  
 
 <script>
-// import TreeNode from './TreeNode.vue'
-
 export default {
   components: {
     "tree-node": () => import("./TreeNode.vue"),
